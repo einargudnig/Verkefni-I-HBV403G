@@ -1,9 +1,8 @@
-const express = require('express'),
-        util = require('util'),
-        fs = require('fs');
+const express = require('express');
+const util = require('util');
+const fs = require('fs');
 
 const router = express.Router();
-const lectures_json_path = './lectureData/lectures.json';
 
 const readFilePromise = util.promisify(fs.readFile);
 
@@ -11,15 +10,27 @@ function catchErrors(fn) {
   return (req, res, next) => fn(req, res, next).catch(next);
 }
 
+//bua til fall sem les lectures.json af disk (async)
+async function lesaJSON() {
+  const file = await readFile('./lectures.json');
+
+  const json = JSON.parse(file)
+
+  return json;
+}
+
+async function list(req, res) {
+  const title = 'Fyrirlestrar';
+  const data = await lesaJSON;
+  const { lecture } = data;
+
+  //res.render('lectures', (title, lectures))
+  res.send('test');
+}
 
 async function lecture(req, res, next) {
   /* todo útfæra */
-}
-
-async function readJSONasync(path) {
-  const json_string = await readFilePromise(path, "utf8");
-  const json_obj = JSON.parse(json_string);
-  return json_obj;
+  //Lesa fyrirlestrana inn og birta.
 }
  
 router.get('/', catchErrors(list));
