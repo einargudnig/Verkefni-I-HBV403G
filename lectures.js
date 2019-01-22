@@ -11,17 +11,17 @@ function catchErrors(fn) {
   return (req, res, next) => fn(req, res, next).catch(next);
 }
 
-async function list(req, res) {
-  const json_file = await readJSONasync(lectures_json_path);
-  res.render("pages/list", { json: json_file, slug: req.originalUrl });
-}
 
 async function lecture(req, res, next) {
   /* todo útfæra */
 }
 
-
-
+async function readJSONasync(path) {
+  const json_string = await readFilePromise(path, "utf8");
+  const json_obj = JSON.parse(json_string);
+  return json_obj;
+}
+ 
 router.get('/', catchErrors(list));
 router.get('/html', catchErrors(list));
 router.get('/css', catchErrors(list));
