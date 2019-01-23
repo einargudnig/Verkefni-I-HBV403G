@@ -1,37 +1,31 @@
-const express = require('express')
-const path = require('path')
-const lectures = require('./lectures.js')
-const app = express()
-const port = 3000;
+const express = require('express');
+const path = require('path');
+const lectures = require('./lectures.js');
+
+const app = express();
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 const hostname = '127.0.0.1';
+const port = 3000;
+app.use('/', lectures);
 
- //Use EJS
- app.set('view engine', 'ejs');
- app.set('views', path.join(__dirname, 'views'));
-
- app.use(express.static(path.join(__dirname, 'public')));
-
-
- function notFoundHandler(req, res, next) { /* eslint-disable-line */
+function notFoundHandler(req, res, next) { // eslint-disable-line
     res.status(404).send('404 Not Found');
-  }
-  
-  function errorHandler(err, req, res, next) { /* eslint-disable-line */
+}
+
+function errorHandler(err, req, res, next) { // eslint-disable-line
     console.error(err);
     res.status(500).send('Villa!');
-  }
-  
-  app.use(notFoundHandler);
-  app.use(errorHandler);
+}
 
- //Lecturelist
- app.use('/', lectures);
- app.use('/html', lectures);
- app.use('/css', lectures);
- app.use('/js', lectures);
+app.use(notFoundHandler);
+app.use(errorHandler);
 
- //start server
- app.listen(port, () => {
-     console.info('Server running at http://${hostname}:${port}/');
- });
+app.listen(port, hostname, () => {
+    console.info(`Server running at http://${hostname}:${port}/`);
+});
 

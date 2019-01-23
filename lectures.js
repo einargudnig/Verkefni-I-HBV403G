@@ -1,42 +1,44 @@
 const express = require('express');
-const util = require('util');
 const fs = require('fs');
+const util = require('util');
+
+const readFile = util.promisify(fs.readFile);
 
 const router = express.Router();
 
-const readFilePromise = util.promisify(fs.readFile);
+async function lesaskra() {
+  const texti = await readFile('./lectures.json');
+
+  const json = JSON.parse(texti);
+
+  return json;
+}
 
 function catchErrors(fn) {
   return (req, res, next) => fn(req, res, next).catch(next);
 }
 
-//bua til fall sem les lectures.json af disk (async)
-async function lesaJSON() {
-  const file = await readFile('./lectures.json');
-
-  const json = JSON.parse(file)
-
-  return json;
-}
-
 async function list(req, res) {
+  //lesa fyrirlestrana inn og birta
   const title = 'Fyrirlestrar';
-  const data = await lesaJSON;
-  const { lecture } = data;
+  const data = await lesaskra();
+  const { lectures } = data;
+  console.log(lectures);
 
-  //res.render('lectures', (title, lectures))
-  res.send('test');
+  res.render('index', { title, lectures });
 }
 
 async function lecture(req, res, next) {
-  /* todo útfæra */
-  //Lesa fyrirlestrana inn og birta.
+  const title = 'Banani';
+  //const data = await lesaskra();
+  //const { lectures } = data;
+  console.log(lectures);
+
+  res.render('lecture', { title, lectures });
+
 }
- 
+
 router.get('/', catchErrors(list));
-router.get('/html', catchErrors(list));
-router.get('/css', catchErrors(list));
-router.get('/js', catchErrors(list));
 router.get('/:slug', catchErrors(lecture));
 
 module.exports = router;

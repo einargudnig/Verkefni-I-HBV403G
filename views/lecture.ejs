@@ -1,14 +1,16 @@
 <%- include('header') -%>
 
-<p>Hjá okkur starfa:</p>
+
 <ul>
-  <% staff.forEach((staff) => { %>
-    <li><%= staff %></li>
+  <% lectures.forEach((lectures) => { %>
+    <li><%= lectures.slug %></li>
   <% }) %>
 </ul>
 
 <% if (typeof extra !== 'undefined') { %>
   <%- extra %>
 <% } %>
+
+<a class="lecture__back" href="/">Til baka</a>
 
 <%- include('footer') -%>
