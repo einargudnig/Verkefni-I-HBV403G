@@ -1,4 +1,4 @@
-const jsdom = require('jsdom');
+/* const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;
 const { document } = (new JSDOM()).window;
@@ -17,7 +17,7 @@ function createHtml() {
     'Hnoða',
     'Lyfta',
     'Baka',
-    'Borða'
+    'Borða',
   ];
 
   steps.forEach((step) => {
@@ -31,10 +31,11 @@ function createHtml() {
   return wrapper;
 }
 
-const html = createHtml();
+// const html = createHtml();
 
 // Skilar DOM hlut frá jsdom
-console.log(html);
+// console.log(html);
 
 // Fáum HTML úr DOM hlut
-console.log(html.outerHTML);
+// console.log(html.outerHTML);
+*/

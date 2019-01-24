@@ -1,8 +1,15 @@
+/*
+ Þetta er kóði sem hefur verið nýttur úr
+ sýnidæmum meðal annars
+*/
+
 const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;
 const { document } = (new JSDOM()).window;
 
+
+// el er hálparfall sem gerir okkur mögulegt að vinna með skrána úr lecture.js
 function el(name, ...children) {
   const element = document.createElement(name);
 
@@ -29,6 +36,12 @@ function item(type, ...data) {
   return wrapper;
 }
 
+/*
+ Föllin hér að neðan hjálpa okkur að
+ taka við gögnum eftir að við lásum inn
+ JOSN skrána og meðhöndluðum hana.
+ Við Búum til html kóða með þessum föllum
+*/
 function text(data) {
   const split = data.split('\n');
 
@@ -103,6 +116,13 @@ function image(data, caption) {
 
   return item('image', blockquote);
 }
+
+/*
+ createContent fallið tekur inn það content sem við höfum
+ nú þegar gert og fer í gegnum hvert slug úr JSON skránni.
+ Það fer yfir hvern og einn fyrirlestur(slug) og sér hvaða case
+ eiga við á réttum stað.
+*/
 
 module.exports = {
   createContent(content) {
