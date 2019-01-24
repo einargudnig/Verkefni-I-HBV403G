@@ -26,8 +26,6 @@ async function list(req, res) {
 
   res.render('index', { title, lectures });
 }
-//console.log('banani');
-//console.log('annar banani');
 async function lecture(req, res, next) {
   const { slug } = req.params;
   const data = await lesaJSON();
@@ -35,9 +33,11 @@ async function lecture(req, res, next) {
   //console.log(foundContent);
 
   if (!foundContent) {
+
+    
     return next();
   }
-  const title  = foundContent;
+  const { title } = foundContent;
   const { category } = foundContent;
 
   const html = item.createContent(foundContent.content);

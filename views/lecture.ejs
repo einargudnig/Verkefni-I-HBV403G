@@ -1,15 +1,14 @@
 <%- include('header') -%>
 
-<main>
   <section class="lecture">
-    <div class="heading" style=""></div>
-      <span class="heading__category"><% category %></span>
-      <h2 class ="heading__title"> <% title %></h2>
+    
+    <div class="heading" style="background-image: url('<%= lecture.image %>')" >
+      <span class="heading__category"><%= category %></span>
+      <h2 class ="heading__title"> <%= title %> </h2>
+      </div>
+
       <%- html %>
+
   </section>
-</main>
-
-
-<a class="lecture__back" href="/">Til baka</a>
 
 <%- include('footer') -%>
